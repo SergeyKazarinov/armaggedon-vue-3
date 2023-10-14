@@ -1,0 +1,16 @@
+@import './reset.scss';
+@import './variables/typography.scss';
+
+:root {
+  --orange-base: #F86600;
+  --orange-smooth: #F8660026;
+  --red-smooth: #F5DED9;
+  --white-base: #fff;
+  --gray-30: #E3E5E5;
+  --black: #000;
+}
+
+#app {
+  background: var(--black);
+  color: var(--white-base)
+}
