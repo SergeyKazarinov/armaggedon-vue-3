@@ -1,7 +1,6 @@
-import '@/app/styles/index.scss';
 import { createApp } from 'vue';
 import App from './app/App.vue';
-import router from './router';
+import router from './app/router';
 
 const app = createApp(App);
 

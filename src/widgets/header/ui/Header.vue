@@ -1,19 +1,12 @@
 <template>
   <header class="header">
     <h1 class="title">ARMAGEDDON 2023</h1>
-    <p class="subtitle">ООО “Команда им. Б. Уиллиса”. Взрываем астероиды с 1998 года.</p>
+    <div class="subtitle">
+      <span> ООО “Команда им. Б. Уиллиса”. </span>
+      <span>Взрываем астероиды с 1998 года.</span>
+    </div>
   </header>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  setup() {
-    return {};
-  }
-});
-</script>
 
 <style scoped>
 .header {
@@ -33,5 +26,7 @@ export default defineComponent({
 
 .subtitle {
   font: var(--font-s);
+  display: flex;
+  flex-direction: column;
 }
 </style>

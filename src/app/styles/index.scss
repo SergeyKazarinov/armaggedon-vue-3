@@ -8,9 +8,12 @@
   --white-base: #fff;
   --gray-30: #E3E5E5;
   --black: #000;
+  --gray: #232526;
 }
 
 #app {
+  min-height: 100vh;
+  min-width: 320px;
   background: var(--black);
   color: var(--white-base)
 }

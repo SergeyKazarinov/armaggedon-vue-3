@@ -25,10 +25,31 @@ export default defineComponent({
 <style scoped>
 .main {
   display: grid;
-  grid-template-areas:
-    'header header header'
-    'leftBar content rightBar';
+  grid-template-areas: 'leftBar content rightBar';
+  grid-template-columns: 1fr minmax(min-content, 402px) 1fr;
+  height: 100%;
+  width: 100%;
 }
-.header {
+
+.leftBar {
+  grid-area: leftBar;
+}
+
+.content {
+  grid-area: content;
+  /* max-width: 402px; */
+  margin: 0 auto;
+}
+
+.rightBar {
+  grid-area: rightBar;
+  margin-right: auto;
+}
+
+.leftBar,
+.rightBar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 </style>
