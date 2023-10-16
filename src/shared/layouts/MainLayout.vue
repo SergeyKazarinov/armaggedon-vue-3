@@ -22,7 +22,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .main {
   display: grid;
   grid-template-areas: 'leftBar content rightBar';
@@ -51,5 +51,20 @@ export default defineComponent({
   position: sticky;
   top: 0;
   height: 100vh;
+}
+
+@include middleScreen {
+  .main {
+    grid-template-areas: 'leftBar content';
+    grid-template-columns: 1fr minmax(279px, 402px);
+  }
+
+  .rightBar {
+    $max-height: 80px;
+    position: fixed;
+    width: 100%;
+    max-height: $max-height;
+    top: calc(100% - $max-height);
+  }
 }
 </style>

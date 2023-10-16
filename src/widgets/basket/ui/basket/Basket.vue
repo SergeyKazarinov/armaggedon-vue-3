@@ -13,7 +13,7 @@ import MyButton from '@/shared/ui/myButton/MyButton.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .basket {
   padding: 16px;
   background: var(--gray);
@@ -28,5 +28,13 @@ import Stack from '@/shared/ui/stack/Stack.vue';
 .subtitle {
   font: var(--font-s);
   font-weight: 400;
+}
+
+@include middleScreen {
+  .basket {
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 0;
+  }
 }
 </style>

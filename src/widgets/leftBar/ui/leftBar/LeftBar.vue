@@ -13,10 +13,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .leftBar {
   height: 620px;
   width: 536px;
+  margin-left: -136px;
 }
 
 .img {
@@ -24,6 +25,19 @@ export default defineComponent({
   height: 100%;
   object-fit: cover;
   object-position: center;
-  margin-left: -136px;
+}
+
+@include largeScreen {
+  .leftBar {
+    width: 377px;
+    height: 436px;
+    margin-left: -73px;
+  }
+}
+
+@include middleScreen {
+  .leftBar {
+    margin-left: -290px;
+  }
 }
 </style>

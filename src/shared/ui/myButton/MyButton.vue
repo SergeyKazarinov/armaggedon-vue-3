@@ -26,6 +26,7 @@ const classes = [variant];
 }
 .primary {
   padding: 8px 16px;
+  height: 48px;
   @include orangeBase();
   border-radius: 40px;
 
