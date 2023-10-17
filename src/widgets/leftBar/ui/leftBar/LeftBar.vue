@@ -1,17 +1,10 @@
+<script setup lang="ts"></script>
+
 <template>
   <div class="leftBar">
     <img src="@/shared/assets/planet.jpeg" alt="Планета земля" class="img" />
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({
-  setup() {
-    return {};
-  }
-});
-</script>
 
 <style scoped lang="scss">
 .leftBar {

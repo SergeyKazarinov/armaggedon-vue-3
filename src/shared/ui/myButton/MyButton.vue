@@ -1,9 +1,3 @@
-<template>
-  <button :class="classes">
-    <slot></slot>
-  </button>
-</template>
-
 <script setup lang="ts">
 type TVariantButton = 'primary' | 'secondary' | 'added';
 
@@ -14,6 +8,12 @@ interface IButtonProps {
 const { variant = 'primary' } = defineProps<IButtonProps>();
 const classes = [variant];
 </script>
+
+<template>
+  <button :class="classes">
+    <slot></slot>
+  </button>
+</template>
 
 <style scoped lang="scss">
 @mixin orangeBase {

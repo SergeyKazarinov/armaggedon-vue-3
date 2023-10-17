@@ -1,8 +1,8 @@
-<template>
-  <div class="stack" :class="[gapClass, directionClass, justifyClass, alignClass]">
-    <slot></slot>
-  </div>
-</template>
+<script lang="ts">
+export default defineComponent({
+  name: 'MyStack'
+});
+</script>
 
 <script setup lang="ts">
 import { defineComponent } from 'vue';
@@ -25,38 +25,17 @@ const {
   align = 'start'
 } = defineProps<IStackProps>();
 
-const justifyClasses: Record<TJustify, string> = {
-  start: 'justify-start',
-  end: 'justify-end',
-  center: 'justify-center',
-  between: 'justify-between'
-};
-
-const gapClasses: Record<TGap, string> = {
-  0: '',
-  4: 'gap-4',
-  8: 'gap-8',
-  16: 'gap-16',
-  24: 'gap-24',
-  32: 'gap-32'
-};
-
-const directionClasses: Record<TDirection, string> = {
-  column: 'column',
-  row: 'row'
-};
-
-const gapClass = gapClasses[gap];
-const directionClass = directionClasses[direction];
-const justifyClass = justifyClasses[justify];
+const gapClass = `gap-${gap}`;
+const directionClass = direction;
+const justifyClass = `justify-${justify}`;
 const alignClass = `align-${align}`;
 </script>
 
-<script lang="ts">
-export default defineComponent({
-  name: 'MyStack'
-});
-</script>
+<template>
+  <div class="stack" :class="[gapClass, directionClass, justifyClass, alignClass]">
+    <slot></slot>
+  </div>
+</template>
 
 <style scoped lang="scss">
 $gaps: (

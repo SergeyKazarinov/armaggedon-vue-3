@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import MyButton from '@/shared/ui/myButton/MyButton.vue';
+import Stack from '@/shared/ui/stack/Stack.vue';
+</script>
+
 <template>
   <Stack :direction="'column'" :gap="32" :justify="'center'" class="basket">
     <Stack :direction="'column'" :gap="0">
@@ -7,11 +12,6 @@
     <MyButton :variant="'primary'">Отправить</MyButton>
   </Stack>
 </template>
-
-<script setup lang="ts">
-import MyButton from '@/shared/ui/myButton/MyButton.vue';
-import Stack from '@/shared/ui/stack/Stack.vue';
-</script>
 
 <style scoped lang="scss">
 .basket {
