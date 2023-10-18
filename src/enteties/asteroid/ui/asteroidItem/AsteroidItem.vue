@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-import { convertDate } from '@/shared/lib/convertDate';
-import { getAsteroidName } from '@/shared/lib/getAsteroidName';
-import { getDiameterAsteroid } from '@/shared/lib/getDiameterAsteroid';
-import { getKmDistance } from '@/shared/lib/getKmDistance';
-import { getPluralLunarDistance } from '@/shared/lib/getPluralLunarDistance';
+import type { IStoreSchema } from '@/app/store/store.types';
+
+import { convertDate } from '@/shared/lib/helpers/convertDate';
+import { getAsteroidName } from '@/shared/lib/helpers/getAsteroidName';
+import { getDiameterAsteroid } from '@/shared/lib/helpers/getDiameterAsteroid';
+import { getKmDistance } from '@/shared/lib/helpers/getKmDistance';
+import { getPluralLunarDistance } from '@/shared/lib/helpers/getPluralLunarDistance';
 import MyButton from '@/shared/ui/myButton/MyButton.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
@@ -14,7 +17,14 @@ interface IAsteroidItemProps {
   asteroid: IAsteroid;
   distanceType: TDistanceType;
 }
+
+interface IAsteroidItemEmits {
+  (e: 'addAsteroid', asteroid: IAsteroid): void;
+  (e: 'removeAsteroid', asteroid: IAsteroid): void;
+}
 const props = defineProps<IAsteroidItemProps>();
+const emit = defineEmits<IAsteroidItemEmits>();
+const store = useStore<IStoreSchema>();
 
 const asteroidDate = convertDate(props.asteroid.close_approach_data[0].close_approach_date);
 const asteroidName = getAsteroidName(props.asteroid.name);
@@ -37,6 +47,18 @@ const diameterAsteroid = getDiameterAsteroid(
 );
 
 const asteroidSizeClass = `asteroidSize-${diameterAsteroid > 100 ? 'm' : 's'}`;
+
+const inBasket = computed(() =>
+  store.state.basket.asteroids.find((item) => item.id === props.asteroid.id)
+);
+
+const handleClick = () => {
+  if (!inBasket.value) {
+    emit('addAsteroid', props.asteroid);
+  } else {
+    emit('removeAsteroid', props.asteroid);
+  }
+};
 </script>
 
 <template>
@@ -56,7 +78,9 @@ const asteroidSizeClass = `asteroidSize-${diameterAsteroid > 100 ? 'm' : 's'}`;
       </Stack>
     </Stack>
     <Stack :gap="8" class="btns">
-      <MyButton :variant="'added'">Заказать</MyButton>
+      <MyButton :variant="'added'" @click="handleClick">{{
+        inBasket ? 'В корзине' : 'Заказать'
+      }}</MyButton>
       <p class="dangerous" v-if="asteroid.is_potentially_hazardous_asteroid">
         <span class="triangle">⚠</span>
         Опасен
@@ -99,3 +123,4 @@ const asteroidSizeClass = `asteroidSize-${diameterAsteroid > 100 ? 'm' : 's'}`;
 }
 </style>
 @/shared/lib/getPluralLunarDistance @/shared/lib/getPluralLunarDistance
+@/shared/lib/helpers/convertDate@/shared/lib/helpers/getAsteroidName@/shared/lib/helpers/getDiameterAsteroid@/shared/lib/helpers/getKmDistance@/shared/lib/helpers/getPluralLunarDistance

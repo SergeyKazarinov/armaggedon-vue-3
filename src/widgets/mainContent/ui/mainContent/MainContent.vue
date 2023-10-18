@@ -15,6 +15,8 @@ interface IAsteroidListProps {
 
 interface IAsteroidListEmits {
   (e: 'changeDistance', distanceType: TDistanceType): void;
+  (e: 'addAsteroid', asteroid: IAsteroid): void;
+  (e: 'removeAsteroid', asteroid: IAsteroid): void;
 }
 
 const emit = defineEmits<IAsteroidListEmits>();
@@ -23,6 +25,14 @@ const props = defineProps<IAsteroidListProps>();
 
 const changeDistance = (distanceType: TDistanceType) => {
   emit('changeDistance', distanceType);
+};
+
+const handleAddAsteroid = (asteroid: IAsteroid) => {
+  emit('addAsteroid', asteroid);
+};
+
+const handleRemoveAsteroid = (asteroid: IAsteroid) => {
+  emit('removeAsteroid', asteroid);
 };
 </script>
 
@@ -33,6 +43,8 @@ const changeDistance = (distanceType: TDistanceType) => {
       <DistanceSwitcher :type="props.distanceType" @changeDistance="changeDistance" />
     </Stack>
     <AsteroidList
+      @addAsteroid="handleAddAsteroid"
+      @removeAsteroid="handleRemoveAsteroid"
       :isLoading="props.isLoading"
       :asteroids="props.asteroids"
       :distanceType="props.distanceType"

@@ -11,7 +11,21 @@ interface IAsteroidListProps {
   distanceType: TDistanceType;
 }
 
+interface IAsteroidListEmits {
+  (e: 'addAsteroid', asteroid: IAsteroid): void;
+  (e: 'removeAsteroid', asteroid: IAsteroid): void;
+}
+
 const props = defineProps<IAsteroidListProps>();
+const emit = defineEmits<IAsteroidListEmits>();
+
+const handleAddAsteroid = (asteroid: IAsteroid) => {
+  emit('addAsteroid', asteroid);
+};
+
+const handleRemoveAsteroid = (asteroid: IAsteroid) => {
+  emit('removeAsteroid', asteroid);
+};
 </script>
 
 <template>
@@ -19,6 +33,8 @@ const props = defineProps<IAsteroidListProps>();
   <Stack v-else :direction="'column'" :gap="24">
     <AsteroidItem
       v-for="asteroid in props.asteroids"
+      @addAsteroid="handleAddAsteroid"
+      @removeAsteroid="handleRemoveAsteroid"
       :asteroid="asteroid"
       :key="asteroid.id"
       :distanceType="props.distanceType"
