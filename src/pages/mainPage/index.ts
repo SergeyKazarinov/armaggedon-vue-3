@@ -3,5 +3,6 @@ export * from './model/store/asteroidModule';
 export type {
   IAsteroid,
   IAsteroidResolve,
-  IAsteroidState
+  IAsteroidState,
+  TDistanceType
 } from './model/types/asteroidState.types';

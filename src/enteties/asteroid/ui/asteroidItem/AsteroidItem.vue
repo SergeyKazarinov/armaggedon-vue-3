@@ -1,33 +1,42 @@
 <script setup lang="ts">
-import type { IAsteroid } from '@/pages/mainPage';
+import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
+import { computed, ref, toRefs, watch } from 'vue';
 
 import { convertDate } from '@/shared/lib/convertDate';
 import { getAsteroidName } from '@/shared/lib/getAsteroidName';
 import { getDiameterAsteroid } from '@/shared/lib/getDiameterAsteroid';
+import { getKmDistance } from '@/shared/lib/getKmDistance';
 import { getPluralLunarDistance } from '@/shared/lib/getPluralLunarDistance';
 import MyButton from '@/shared/ui/myButton/MyButton.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
-type TAsteroidSize = 's' | 'm' | 'l';
 interface IAsteroidItemProps {
   asteroid: IAsteroid;
-  asteroidSize?: TAsteroidSize;
+  distanceType: TDistanceType;
 }
-const { asteroid, asteroidSize = 's' } = defineProps<IAsteroidItemProps>();
+const props = defineProps<IAsteroidItemProps>();
 
-const asteroidDate = convertDate(asteroid.close_approach_data[0].close_approach_date);
-const asteroidName = getAsteroidName(asteroid.name);
-
-const asteroidSizeClass = `asteroidSize-${asteroidSize}`;
+const asteroidDate = convertDate(props.asteroid.close_approach_data[0].close_approach_date);
+const asteroidName = getAsteroidName(props.asteroid.name);
 
 const lunarDistance = getPluralLunarDistance(
-  Math.floor(Number(asteroid.close_approach_data[0].miss_distance.lunar))
+  Math.floor(Number(props.asteroid.close_approach_data[0].miss_distance.lunar))
+);
+
+const kilometerDistance = getKmDistance(
+  Number(props.asteroid.close_approach_data[0].miss_distance.kilometers)
+);
+
+const distance = computed(() =>
+  props.distanceType === 'kilometer' ? kilometerDistance : lunarDistance
 );
 
 const diameterAsteroid = getDiameterAsteroid(
-  asteroid.estimated_diameter.meters.estimated_diameter_min,
-  asteroid.estimated_diameter.meters.estimated_diameter_max
+  props.asteroid.estimated_diameter.meters.estimated_diameter_min,
+  props.asteroid.estimated_diameter.meters.estimated_diameter_max
 );
+
+const asteroidSizeClass = `asteroidSize-${diameterAsteroid > 100 ? 'm' : 's'}`;
 </script>
 
 <template>
@@ -35,7 +44,7 @@ const diameterAsteroid = getDiameterAsteroid(
     <h3 class="title">{{ asteroidDate }}</h3>
     <Stack :align="'center'">
       <Stack :direction="'column'" class="distance">
-        <p>{{ lunarDistance }}</p>
+        <p>{{ distance }}</p>
         <img src="@/shared/assets/arrow.svg" alt="Линия с двумя стрелками на концах" />
       </Stack>
       <div class="asteroidWrapper" :class="asteroidSizeClass">

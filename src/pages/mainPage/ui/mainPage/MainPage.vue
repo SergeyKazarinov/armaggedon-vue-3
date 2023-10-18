@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DateTime } from 'luxon';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
@@ -12,12 +12,18 @@ import { MainContent } from '@/widgets/mainContent';
 
 import MainLayouts from '@/shared/layouts/MainLayout.vue';
 
-import { asteroidActions } from '../../model/store/asteroidModule';
+import type { TDistanceType } from '../..';
+import { asteroidActions, asteroidMutations } from '../../model/store/asteroidModule';
 
 const store = useStore<IStoreSchema>();
 
 const isLoading = computed(() => store.state.asteroidResolve.isLoading);
 const asteroids = computed(() => store.state.asteroidResolve.asteroids);
+const distanceType = computed(() => store.state.asteroidResolve.distanceType);
+
+const changeDistance = (distanceType: TDistanceType) => {
+  store.commit(asteroidMutations.setDistanceType, distanceType);
+};
 
 onMounted(() => {
   store.dispatch(asteroidActions.getAsteroidListAction, {
@@ -34,7 +40,12 @@ onMounted(() => {
         <LeftBar />
       </template>
       <template #content>
-        <MainContent :isLoading="isLoading" :asteroids="asteroids" />
+        <MainContent
+          :isLoading="isLoading"
+          :asteroids="asteroids"
+          :distanceType="distanceType"
+          @changeDistance="changeDistance"
+        />
       </template>
       <template #rightBar>
         <Basket />

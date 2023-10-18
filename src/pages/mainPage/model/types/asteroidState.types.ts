@@ -50,10 +50,13 @@ export interface IAsteroidResolve {
   near_earth_objects: Record<string, IAsteroid[]>;
 }
 
+export type TDistanceType = 'kilometer' | 'luna';
+
 export interface IAsteroidState {
   data: IAsteroidResolve;
   isLoading: boolean;
   error: string;
   page: number;
   asteroids: IAsteroid[];
+  distanceType: TDistanceType;
 }

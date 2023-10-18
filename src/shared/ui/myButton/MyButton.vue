@@ -21,9 +21,6 @@ const classes = [variant];
   color: var(--white-base);
 }
 
-@mixin cursor {
-  cursor: url('@/shared/assets/cursor.svg'), pointer;
-}
 .primary {
   padding: 8px 16px;
   height: 48px;

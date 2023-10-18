@@ -1,11 +1,11 @@
-import type { AxiosResponse } from 'axios';
+import { AxiosError, type AxiosResponse } from 'axios';
 import type { Module } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
 
 import { apiNeowsInstance } from '@/shared/api/apiInstance';
 
-import type { IAsteroidResolve, IAsteroidState } from '../types/asteroidState.types';
+import type { IAsteroidResolve, IAsteroidState, TDistanceType } from '../types/asteroidState.types';
 import type { IFetchAsteroidListArgs } from '../types/fetchAsteroidList.types';
 
 export const NAMESPACE_ASTEROID_RESOLVE = 'asteroidResolve';
@@ -25,7 +25,8 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
     error: '',
     isLoading: false,
     page: 0,
-    asteroids: []
+    asteroids: [],
+    distanceType: 'luna'
   }),
 
   mutations: {
@@ -34,6 +35,12 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
     },
     setDate(state, data: IAsteroidResolve) {
       state.data = data;
+    },
+    setError(state, error: string) {
+      state.error = error;
+    },
+    setDistanceType(state, distanceType: TDistanceType) {
+      state.distanceType = distanceType;
     }
   },
 
@@ -44,7 +51,7 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
     ) {
       try {
         commit('setLoading', true);
-
+        state.error = '';
         const asteroidResolve: AxiosResponse<IAsteroidResolve, any> = await apiNeowsInstance.get(
           '/',
           {
@@ -66,6 +73,7 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
         state.page += 1;
       } catch (e) {
         console.log(e);
+        state.error = (e as AxiosError).message;
       } finally {
         commit('setLoading', false);
       }
@@ -75,4 +83,8 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
 
 export const asteroidActions = {
   getAsteroidListAction: `${NAMESPACE_ASTEROID_RESOLVE}/getAsteroidList`
+};
+
+export const asteroidMutations = {
+  setDistanceType: `${NAMESPACE_ASTEROID_RESOLVE}/setDistanceType`
 };
