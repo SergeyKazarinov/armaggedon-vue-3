@@ -2,7 +2,6 @@ import { AxiosError, type AxiosResponse } from 'axios';
 import type { Module } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
-
 import { apiNeowsInstance } from '@/shared/api/apiInstance';
 
 import type { IAsteroidResolve, IAsteroidState, TDistanceType } from '../types/asteroidState.types';
@@ -26,7 +25,8 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
     isLoading: false,
     page: 0,
     asteroids: [],
-    distanceType: 'luna'
+    distanceType: 'luna',
+    inited: false
   }),
 
   mutations: {
@@ -70,6 +70,7 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
         state.asteroids = dataArray;
 
         state.data = asteroidResolve.data;
+        state.inited = true;
         state.page += 1;
       } catch (e) {
         console.log(e);

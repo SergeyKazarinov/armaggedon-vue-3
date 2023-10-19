@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
-
 import { convertDate } from '@/shared/lib/helpers/convertDate';
 import { getAsteroidName } from '@/shared/lib/helpers/getAsteroidName';
 import { getDiameterAsteroid } from '@/shared/lib/helpers/getDiameterAsteroid';

@@ -4,12 +4,10 @@ import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
-
+import MainLayouts from '@/shared/layouts/MainLayout.vue';
 import { Basket, basketMutations } from '@/widgets/basket';
 import { LeftBar } from '@/widgets/leftBar';
 import { MainContent } from '@/widgets/mainContent';
-
-import MainLayouts from '@/shared/layouts/MainLayout.vue';
 
 import type { IAsteroid, TDistanceType } from '../..';
 import { asteroidActions, asteroidMutations } from '../../model/store/asteroidModule';
@@ -33,9 +31,11 @@ const changeDistance = (distanceType: TDistanceType) => {
 };
 
 onMounted(() => {
-  store.dispatch(asteroidActions.getAsteroidListAction, {
-    startDate: DateTime.now().toFormat('yyyy-LL-dd')
-  });
+  if (!store.state.asteroidResolve.inited) {
+    store.dispatch(asteroidActions.getAsteroidListAction, {
+      startDate: DateTime.now().toFormat('yyyy-LL-dd')
+    });
+  }
 });
 </script>
 

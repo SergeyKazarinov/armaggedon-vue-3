@@ -19,3 +19,18 @@
   background: var(--black);
   color: var(--white-base)
 }
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--red-smooth);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--orange-base);
+  border-radius: 20px;
+  border: 1px solid var(--red-base)
+}

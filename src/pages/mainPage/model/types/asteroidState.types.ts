@@ -55,6 +55,7 @@ export type TDistanceType = 'kilometer' | 'luna';
 export interface IAsteroidState {
   data: IAsteroidResolve;
   isLoading: boolean;
+  inited: boolean;
   error: string;
   page: number;
   asteroids: IAsteroid[];

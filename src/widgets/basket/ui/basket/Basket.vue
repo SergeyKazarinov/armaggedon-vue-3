@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
-
 import { getPluralAsteroids } from '@/shared/lib/helpers/getPluralAsteroids';
 import MyButton from '@/shared/ui/myButton/MyButton.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';

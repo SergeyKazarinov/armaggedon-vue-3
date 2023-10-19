@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
 
-import { DistanceSwitcher } from '@/features/distanceSwitcher';
-
 import { AsteroidList } from '@/entities/asteroid';
-
+import { DistanceSwitcher } from '@/features/distanceSwitcher';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
 interface IAsteroidListProps {
