@@ -6,7 +6,6 @@ import { useStore } from 'vuex';
 import type { IStoreSchema } from '@/app/store/store.types';
 
 import { Basket, basketMutations } from '@/widgets/basket';
-import { MyHeader } from '@/widgets/header';
 import { LeftBar } from '@/widgets/leftBar';
 import { MainContent } from '@/widgets/mainContent';
 
@@ -42,7 +41,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <MyHeader />
     <MainLayouts>
       <template #leftBar>
         <LeftBar />

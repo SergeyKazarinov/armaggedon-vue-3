@@ -1,4 +1,4 @@
-interface ICloseApproachData {
+export interface ICloseApproachData {
   close_approach_date: string;
   close_approach_date_full: string;
   epoch_date_close_approach: number;

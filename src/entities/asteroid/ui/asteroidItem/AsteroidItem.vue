@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
@@ -25,12 +26,13 @@ interface IAsteroidItemEmits {
 const props = defineProps<IAsteroidItemProps>();
 const emit = defineEmits<IAsteroidItemEmits>();
 const store = useStore<IStoreSchema>();
+const router = useRouter();
 
 const asteroidDate = convertDate(props.asteroid.close_approach_data[0].close_approach_date);
 const asteroidName = getAsteroidName(props.asteroid.name);
 
 const lunarDistance = getPluralLunarDistance(
-  Math.floor(Number(props.asteroid.close_approach_data[0].miss_distance.lunar))
+  Number(props.asteroid.close_approach_data[0].miss_distance.lunar)
 );
 
 const kilometerDistance = getKmDistance(
@@ -52,7 +54,8 @@ const inBasket = computed(() =>
   store.state.basket.asteroids.find((item) => item.id === props.asteroid.id)
 );
 
-const handleClick = () => {
+const handleClick = (e: Event) => {
+  e.stopPropagation();
   if (!inBasket.value) {
     emit('addAsteroid', props.asteroid);
   } else {
@@ -62,7 +65,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <Stack :direction="'column'" class="item">
+  <Stack :direction="'column'" class="item" @click="router.push(`/asteroids/${props.asteroid.id}`)">
     <h3 class="title">{{ asteroidDate }}</h3>
     <Stack :align="'center'">
       <Stack :direction="'column'" class="distance">
@@ -90,6 +93,14 @@ const handleClick = () => {
 </template>
 
 <style scoped lang="scss">
+.item {
+  border-radius: 16px;
+  padding: 8px;
+  &:hover {
+    @include cursor();
+    box-shadow: inset 0 0 10px 10px var(--orange-smooth);
+  }
+}
 .title {
   font: var(--font-m);
   font-weight: 700;
@@ -122,5 +133,3 @@ const handleClick = () => {
   height: 100%;
 }
 </style>
-@/shared/lib/getPluralLunarDistance @/shared/lib/getPluralLunarDistance
-@/shared/lib/helpers/convertDate@/shared/lib/helpers/getAsteroidName@/shared/lib/helpers/getDiameterAsteroid@/shared/lib/helpers/getKmDistance@/shared/lib/helpers/getPluralLunarDistance

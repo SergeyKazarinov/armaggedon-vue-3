@@ -1,3 +1,4 @@
+import { AsteroidIdPage } from '@/pages/asteroidIdPage';
 import { MainPage } from '@/pages/mainPage';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -8,6 +9,11 @@ const router = createRouter({
       path: '/',
       name: 'main',
       component: MainPage
+    },
+    {
+      path: '/asteroids/:asteroidId',
+      name: 'asteroidId',
+      component: AsteroidIdPage
     }
   ]
 });

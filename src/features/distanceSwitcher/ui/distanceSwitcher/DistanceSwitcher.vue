@@ -21,18 +21,21 @@ const changeDistance = (distanceType: TDistanceType) => {
 </script>
 
 <template>
-  <Stack>
-    <div
-      @click="changeDistance('kilometer')"
-      class="distance"
-      :class="{ active: type === 'kilometer' }"
-    >
-      В километрах
-    </div>
-    |
-    <div @click="changeDistance('luna')" class="distance" :class="{ active: type === 'luna' }">
-      В лунных орбитах
-    </div>
+  <Stack :direction="'column'" :gap="4">
+    <p>Отображать расстояние:</p>
+    <Stack>
+      <div
+        @click="changeDistance('kilometer')"
+        class="distance"
+        :class="{ active: type === 'kilometer' }"
+      >
+        В километрах
+      </div>
+      |
+      <div @click="changeDistance('luna')" class="distance" :class="{ active: type === 'luna' }">
+        В лунных орбитах
+      </div>
+    </Stack>
   </Stack>
 </template>
 

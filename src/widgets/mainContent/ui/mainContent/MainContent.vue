@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { AsteroidList } from '@/enteties/asteroid';
 import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
-import { computed, watch } from 'vue';
 
 import { DistanceSwitcher } from '@/features/distanceSwitcher';
+
+import { AsteroidList } from '@/entities/asteroid';
 
 import Stack from '@/shared/ui/stack/Stack.vue';
 

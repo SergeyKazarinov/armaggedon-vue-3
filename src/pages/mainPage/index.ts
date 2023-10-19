@@ -4,5 +4,6 @@ export type {
   IAsteroid,
   IAsteroidResolve,
   IAsteroidState,
-  TDistanceType
+  TDistanceType,
+  ICloseApproachData
 } from './model/types/asteroidState.types';

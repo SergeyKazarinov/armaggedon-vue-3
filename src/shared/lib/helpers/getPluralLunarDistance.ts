@@ -6,16 +6,17 @@ const ruOrdinalRules = new Intl.PluralRules('ru');
  * @returns {String} целое число и склоняемое окончание
  */
 export const getPluralLunarDistance = (distance: number): string => {
-  const pluralRule = ruOrdinalRules.select(distance);
+  const distanceLuna = Math.floor(distance);
+  const pluralRule = ruOrdinalRules.select(distanceLuna);
 
   switch (pluralRule) {
     case 'one':
-      return `${distance} лунная орбита`;
+      return `${distanceLuna} лунная орбита`;
     case 'few':
-      return `${distance} лунные орбиты`;
+      return `${distanceLuna} лунные орбиты`;
     case 'many':
-      return `${distance} лунных орбит`;
+      return `${distanceLuna} лунных орбит`;
     default:
-      return `${distance} лунных орбит`;
+      return `${distanceLuna} лунных орбит`;
   }
 };
