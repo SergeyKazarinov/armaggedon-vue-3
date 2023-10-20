@@ -30,6 +30,10 @@ const changeDistance = (distanceType: TDistanceType) => {
   store.commit(asteroidMutations.setDistanceType, distanceType);
 };
 
+const handleFetchNextAsteroids = () => {
+  store.dispatch(asteroidActions.getNextAsteroidsAction);
+};
+
 onMounted(() => {
   if (!store.state.asteroidResolve.inited) {
     store.dispatch(asteroidActions.getAsteroidListAction, {
@@ -53,6 +57,7 @@ onMounted(() => {
           @changeDistance="changeDistance"
           @addAsteroid="handleAddAsteroid"
           @removeAsteroid="handleRemoveAsteroid"
+          @fetch-next-asteroids="handleFetchNextAsteroids"
         />
       </template>
       <template #rightBar>

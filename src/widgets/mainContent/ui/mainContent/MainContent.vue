@@ -3,6 +3,7 @@ import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
 
 import { AsteroidList } from '@/entities/asteroid';
 import { DistanceSwitcher } from '@/features/distanceSwitcher';
+import { vInterception } from '@/shared/lib/directives/vInterception';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
 interface IAsteroidListProps {
@@ -15,6 +16,7 @@ interface IAsteroidListEmits {
   (e: 'changeDistance', distanceType: TDistanceType): void;
   (e: 'addAsteroid', asteroid: IAsteroid): void;
   (e: 'removeAsteroid', asteroid: IAsteroid): void;
+  (e: 'fetchNextAsteroids'): void;
 }
 
 const emit = defineEmits<IAsteroidListEmits>();
@@ -32,6 +34,10 @@ const handleAddAsteroid = (asteroid: IAsteroid) => {
 const handleRemoveAsteroid = (asteroid: IAsteroid) => {
   emit('removeAsteroid', asteroid);
 };
+
+const handleFetchNextAsteroids = () => {
+  emit('fetchNextAsteroids');
+};
 </script>
 
 <template>
@@ -47,6 +53,11 @@ const handleRemoveAsteroid = (asteroid: IAsteroid) => {
       :asteroids="props.asteroids"
       :distanceType="props.distanceType"
     />
+    <div
+      class="observer"
+      v-if="props.asteroids.length"
+      v-interception="{ callback: handleFetchNextAsteroids }"
+    ></div>
   </Stack>
 </template>
 
@@ -58,5 +69,9 @@ const handleRemoveAsteroid = (asteroid: IAsteroid) => {
 .title {
   font: var(--font-l);
   font-weight: 700;
+}
+
+.observer {
+  height: 50px;
 }
 </style>

@@ -5,7 +5,6 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
-import { CloseApproachDataList } from '@/entities/closeApproachData';
 import { DistanceSwitcher } from '@/features/distanceSwitcher';
 import { apiNeoInstance } from '@/shared/api/apiInstance';
 import Stack from '@/shared/ui/stack/Stack.vue';
@@ -43,10 +42,6 @@ onMounted(async () => {
         @changeDistance="changeDistance"
       />
       <AsteroidIdInfo :asteroid="asteroid" />
-      <CloseApproachDataList
-        :closeApproachData="asteroid.close_approach_data"
-        :distanceType="distanceType"
-      />
     </Stack>
   </main>
 </template>

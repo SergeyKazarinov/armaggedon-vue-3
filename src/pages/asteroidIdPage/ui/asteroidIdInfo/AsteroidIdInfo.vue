@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
+import { CloseApproachDataList } from '@/entities/closeApproachData';
 import { convertDate } from '@/shared/lib/helpers/convertDate';
 import { getAsteroidName } from '@/shared/lib/helpers/getAsteroidName';
 import { getDiameterAsteroid } from '@/shared/lib/helpers/getDiameterAsteroid';
@@ -88,6 +89,10 @@ const distanceType = computed(() => store.state.asteroidResolve.distanceType);
       м</span
     >
   </Stack>
+  <CloseApproachDataList
+    :closeApproachData="asteroid.close_approach_data"
+    :distanceType="distanceType"
+  />
 </template>
 
 <style scoped lang="scss">
