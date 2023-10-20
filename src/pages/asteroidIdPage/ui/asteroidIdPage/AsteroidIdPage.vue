@@ -90,4 +90,31 @@ onMounted(async () => {
     animation: rotate 9s infinite linear;
   }
 }
+
+@include largeScreen {
+  .main {
+    max-width: 600px;
+  }
+
+  .imageWrapper {
+    width: 288px;
+    height: 300px;
+  }
+}
+
+@include middleScreen {
+  .main {
+    max-width: 300px;
+  }
+
+  .title {
+    font: var(--font-m);
+  }
+
+  .imageWrapper {
+    width: 128px;
+    height: 160px;
+    top: 100px;
+  }
+}
 </style>

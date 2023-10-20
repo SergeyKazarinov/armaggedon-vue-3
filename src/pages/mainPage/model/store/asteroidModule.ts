@@ -24,6 +24,7 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
     },
     error: '',
     isLoading: false,
+    isLoadingNextAsteroid: false,
     page: 0,
     asteroids: [],
     distanceType: 'luna',
@@ -81,8 +82,9 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
       }
     },
 
-    async getNextAsteroids({ state, commit }) {
+    async getNextAsteroids({ state }) {
       try {
+        state.isLoadingNextAsteroid = true;
         const startDate = DateTime.now().plus({ days: state.page }).toFormat('yyyy-LL-dd');
         const asteroidResolve: AxiosResponse<IAsteroidResolve, any> = await apiNeowsInstance.get(
           '/',
@@ -111,6 +113,8 @@ export const asteroidModule: Module<IAsteroidState, IStoreSchema> = {
       } catch (e) {
         console.log(e);
         state.error = (e as AxiosError).message;
+      } finally {
+        state.isLoadingNextAsteroid = false;
       }
     }
   }

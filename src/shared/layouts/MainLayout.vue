@@ -52,7 +52,7 @@
   }
 
   .rightBar {
-    $max-height: 80px;
+    $max-height: 78px;
     position: fixed;
     width: 100%;
     max-height: $max-height;

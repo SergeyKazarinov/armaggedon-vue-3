@@ -4,7 +4,9 @@ import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 import type { IStoreSchema } from '@/app/store/store.types';
+import { ScrollToTopButton } from '@/features/scrollToTopButom';
 import MainLayouts from '@/shared/layouts/MainLayout.vue';
+import Stack from '@/shared/ui/stack/Stack.vue';
 import { Basket, basketMutations } from '@/widgets/basket';
 import { LeftBar } from '@/widgets/leftBar';
 import { MainContent } from '@/widgets/mainContent';
@@ -15,6 +17,7 @@ import { asteroidActions, asteroidMutations } from '../../model/store/asteroidMo
 const store = useStore<IStoreSchema>();
 
 const isLoading = computed(() => store.state.asteroidResolve.isLoading);
+const isLoadingNextAsteroid = computed(() => store.state.asteroidResolve.isLoadingNextAsteroid);
 const asteroids = computed(() => store.state.asteroidResolve.asteroids);
 const distanceType = computed(() => store.state.asteroidResolve.distanceType);
 
@@ -52,6 +55,7 @@ onMounted(() => {
       <template #content>
         <MainContent
           :isLoading="isLoading"
+          :isLoadingNextAsteroid="isLoadingNextAsteroid"
           :asteroids="asteroids"
           :distanceType="distanceType"
           @changeDistance="changeDistance"
@@ -61,7 +65,10 @@ onMounted(() => {
         />
       </template>
       <template #rightBar>
-        <Basket />
+        <Stack :direction="'column'" :justify="'between'" style="height: 100%">
+          <Basket />
+          <ScrollToTopButton />
+        </Stack>
       </template>
     </MainLayouts>
   </div>

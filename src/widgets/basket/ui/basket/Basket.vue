@@ -44,6 +44,7 @@ const asteroidLength = computed(() => getPluralAsteroids(store.state.basket.aste
     flex-direction: row;
     justify-content: space-between;
     border-radius: 0;
+    width: 100%;
   }
 }
 </style>

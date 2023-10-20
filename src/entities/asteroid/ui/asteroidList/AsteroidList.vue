@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
 
+import Spinner from '@/shared/ui/spinner/Spinner.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
 import AsteroidItem from '../asteroidItem/AsteroidItem.vue';
@@ -29,7 +30,7 @@ const handleRemoveAsteroid = (asteroid: IAsteroid) => {
 </script>
 
 <template>
-  <div v-if="isLoading">Загрузка...</div>
+  <Spinner class="spinner" v-if="isLoading" scale="4" />
   <Stack v-else :direction="'column'" :gap="24">
     <AsteroidItem
       v-for="asteroid in props.asteroids"
@@ -42,4 +43,8 @@ const handleRemoveAsteroid = (asteroid: IAsteroid) => {
   </Stack>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spinner {
+  margin: 0 auto;
+}
+</style>

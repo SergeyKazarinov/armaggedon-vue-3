@@ -4,10 +4,12 @@ import type { IAsteroid, TDistanceType } from '@/pages/mainPage';
 import { AsteroidList } from '@/entities/asteroid';
 import { DistanceSwitcher } from '@/features/distanceSwitcher';
 import { vInterception } from '@/shared/lib/directives/vInterception';
+import Spinner from '@/shared/ui/spinner/Spinner.vue';
 import Stack from '@/shared/ui/stack/Stack.vue';
 
 interface IAsteroidListProps {
   isLoading: boolean;
+  isLoadingNextAsteroid: boolean;
   asteroids: IAsteroid[];
   distanceType: TDistanceType;
 }
@@ -53,6 +55,7 @@ const handleFetchNextAsteroids = () => {
       :asteroids="props.asteroids"
       :distanceType="props.distanceType"
     />
+    <Spinner v-if="props.isLoadingNextAsteroid" class="spinner" scale="2" />
     <div
       class="observer"
       v-if="props.asteroids.length"
@@ -71,6 +74,9 @@ const handleFetchNextAsteroids = () => {
   font-weight: 700;
 }
 
+.spinner {
+  margin: 0 auto;
+}
 .observer {
   height: 50px;
 }
