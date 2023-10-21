@@ -1,5 +1,6 @@
 import { AsteroidIdPage } from '@/pages/asteroidIdPage';
 import { MainPage } from '@/pages/mainPage';
+import NotFoundPage from '@/pages/notFoundPage/ui/notFoundPage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/asteroids/:asteroidId',
       name: 'asteroidId',
       component: AsteroidIdPage
+    },
+    {
+      path: '/:pathMathc(.*)*',
+      name: 'NotFound',
+      component: NotFoundPage
     }
   ]
 });
